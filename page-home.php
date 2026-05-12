@@ -83,6 +83,10 @@
     }
     </script>
     <?php wp_head(); ?>
+    <meta property="og:image" content="https://netanelgolan.com/wp-content/uploads/hero-main.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="800" />
+    <meta name="twitter:image" content="https://netanelgolan.com/wp-content/uploads/hero-main.jpg" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
@@ -401,7 +405,7 @@
 <!-- HERO -->
 <section class="hero">
     <div class="hero-bg">
-        <img src="/wp-content/uploads/hero-main.jpg" alt="נתנאל גולן - עיצוב שיער מקצועי בסלון בהוד השרון">
+        <img src="/wp-content/uploads/hero-main.jpg" alt="נתנאל גולן - עיצוב שיער מקצועי בסלון בהוד השרון" loading="eager" fetchpriority="high">
         <div class="hero-bg-overlay"></div>
     </div>
     <div class="hero-content">
@@ -425,7 +429,7 @@
     <div class="container">
         <div class="about-grid">
             <div class="about-img-wrap reveal">
-                <img src="/wp-content/uploads/20250803_171721.jpg" alt="נתנאל גולן - עבודת שיער">
+                <img src="/wp-content/uploads/20250803_171721.jpg" alt="נתנאל גולן - עבודת שיער" loading="lazy">
             </div>
             <div class="about-text reveal d2">
                 <span class="section-tag">אודות</span>
@@ -522,7 +526,7 @@
         </div>
         <div class="ba-grid">
             <div class="ba-card reveal d1">
-                <img src="/wp-content/uploads/20250716_205401.jpg" alt="גבות לפני ואחרי">
+                <img src="/wp-content/uploads/20250716_205401.jpg" alt="גבות לפני ואחרי" loading="lazy">
                 <div class="ba-footer">
                     <div class="ba-tags">
                         <span class="ba-tag ba-before">לפני</span>
@@ -534,7 +538,7 @@
                 </div>
             </div>
             <div class="ba-card reveal d2">
-                <img src="/wp-content/uploads/20260208_162202.jpg" alt="שיער לפני ואחרי">
+                <img src="/wp-content/uploads/20260208_162202.jpg" alt="שיער לפני ואחרי" loading="lazy">
                 <div class="ba-footer">
                     <div class="ba-tags">
                         <span class="ba-tag ba-before">לפני</span>
@@ -597,26 +601,56 @@
             else:
             ?>
             <div class="g-item reveal d1">
-                <img src="/wp-content/uploads/20250701_172615.jpg" alt="תספורת">
+                <img src="/wp-content/uploads/20250701_172615.jpg" alt="תספורת" loading="lazy">
                 <div class="g-overlay"><p>תספורת</p></div>
             </div>
             <div class="g-item reveal d2">
-                <img src="/wp-content/uploads/20260205_120223.jpg" alt="צביעה">
+                <img src="/wp-content/uploads/20260205_120223.jpg" alt="צביעה" loading="lazy">
                 <div class="g-overlay"><p>צביעה</p></div>
             </div>
             <div class="g-item reveal d3">
-                <img src="/wp-content/uploads/20250716_205401.jpg" alt="גבות">
+                <img src="/wp-content/uploads/20250716_205401.jpg" alt="גבות" loading="lazy">
                 <div class="g-overlay"><p>מיקרובליידינג</p></div>
             </div>
             <div class="g-item reveal d4">
-                <img src="/wp-content/uploads/20251106_195852.jpg" alt="שיער">
+                <img src="/wp-content/uploads/20251106_195852.jpg" alt="שיער" loading="lazy">
                 <div class="g-overlay"><p>טיפול שיער</p></div>
             </div>
             <div class="g-item reveal d1">
-                <img src="/wp-content/uploads/20260208_162202.jpg" alt="לפני ואחרי">
+                <img src="/wp-content/uploads/20260208_162202.jpg" alt="לפני ואחרי" loading="lazy">
                 <div class="g-overlay"><p>לפני ואחרי</p></div>
             </div>
             <?php endif; ?>
+        </div>
+    </div>
+</section>
+
+<!-- ARTICLES -->
+<section class="section" id="articles" style="background:#0d0d0d;">
+    <div class="container">
+        <div class="reveal" style="text-align:center;margin-bottom:48px;">
+            <h2 class="section-h2">טיפים ומדריכים</h2>
+            <p style="color:var(--text-m);font-size:1.05rem;">כל מה שרצית לדעת על שיער ועיצוב גבות</p>
+        </div>
+        <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;" class="articles-grid reveal">
+        <?php
+        $posts = get_posts(['numberposts'=>3,'post_status'=>'publish','orderby'=>'date','order'=>'DESC']);
+        foreach($posts as $post):
+            $title = get_the_title($post);
+            $url = get_permalink($post);
+            $excerpt = get_the_excerpt($post);
+            $date = get_the_date('j F Y', $post);
+        ?>
+        <a href="<?php echo esc_url($url); ?>" style="background:var(--card);border-radius:20px;padding:28px 24px;text-decoration:none;display:block;border:1px solid rgba(163,177,138,0.12);transition:border-color 0.25s,transform 0.25s;" onmouseover="this.style.borderColor='rgba(163,177,138,0.45)';this.style.transform='translateY(-3px)'" onmouseout="this.style.borderColor='rgba(163,177,138,0.12)';this.style.transform='translateY(0)'">
+            <p style="color:var(--text-m);font-size:0.8rem;margin:0 0 10px;"><?php echo esc_html($date); ?></p>
+            <h3 style="color:var(--text);font-size:1.05rem;font-weight:600;margin:0 0 10px;line-height:1.45;"><?php echo esc_html($title); ?></h3>
+            <p style="color:var(--text-m);font-size:0.9rem;margin:0 0 16px;line-height:1.6;"><?php echo wp_trim_words(esc_html($excerpt),18); ?></p>
+            <span style="color:var(--sage);font-size:0.85rem;font-weight:500;">קרא עוד ←</span>
+        </a>
+        <?php endforeach; ?>
+        </div>
+        <div style="text-align:center;margin-top:40px;" class="reveal d2">
+            <a href="/<?php echo urlencode('בלוג'); ?>/" style="display:inline-block;border:1.5px solid var(--sage);color:var(--sage);padding:12px 32px;border-radius:50px;text-decoration:none;font-size:0.95rem;font-weight:500;transition:background 0.2s,color 0.2s;" onmouseover="this.style.background='var(--sage)';this.style.color='#0a0a0a'" onmouseout="this.style.background='transparent';this.style.color='var(--sage)'">כל המאמרים</a>
         </div>
     </div>
 </section>
